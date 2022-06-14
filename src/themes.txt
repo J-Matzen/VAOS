@@ -1,0 +1,55 @@
+############################
+Greenish:
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#506551',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      main: '#57ad60',
+      contrastText: '#ffffff',
+    },
+  },
+  typography: {
+    fontFamily: 'Raleway',
+    subtitle2: {
+      color: '#D1DAD1',
+    }
+  },
+  components: {
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          color: 'white',
+        }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: 'white',
+        }
+      }
+    },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#384638',
+        }
+      }
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            color: '#ffffff',
+            backgroundColor: '#57ad60',
+          }
+        }
+      }
+    },
+  }
+});
+############################

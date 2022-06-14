@@ -1,0 +1,6 @@
+import * as cons from "./plotNames";
+
+export const graphTypesExport = [cons.TwoDLissajous, cons.PipkinInSample, cons.PipkinOutSample, cons.TwoDLayoverName, cons.TwoDLayoverNameOut, cons.AreaLayoverName, cons.AreaLayoverNameOut, cons.RatioLinechart, cons.RatioHeatmap, cons.SimilarityChart, cons.SimilarityHeatmap, cons.SimilarityNetwork, cons.HarmonicsLineChart]
+
+export const tabChartTypes = [['Dashboard'], [cons.TwoDLissajous, cons.ThreeDLissajous], [cons.PipkinInSample, cons.PipkinOutSample], [cons.TwoDLayoverName, cons.TwoDLayoverNameOut, cons.AreaLayoverName, cons.AreaLayoverNameOut, cons.ThreeDLayoverName], [cons.RatioLinechart, cons.RatioHeatmap], [cons.PipkinInSample, cons.PipkinOutSample]]
+export const graphTypes = [cons.TwoDLissajous, cons.ThreeDLissajous, cons.PipkinInSample, cons.PipkinOutSample, cons.TwoDLayoverName, cons.ThreeDLayoverName, cons.AreaLayoverName, cons.RatioLinechart, cons.RatioHeatmap, cons.SimilarityChart, cons.SimilarityHeatmap, cons.SimilarityNetwork, cons.AreaLayoverNameOut, cons.TwoDLayoverNameOut]
