@@ -7,7 +7,7 @@ export const ThreeDLayoverName = "3D Layover Plot";
 export const AreaLayoverName = "Area 2D Layover";
 export const AreaLayoverNameOut = "Area Strains 2D Layover";
 export const PipkinInSample = "Pipkin Within Sample"
-export const PipkinOutSample = "Pipkin Across Sample"
+export const PipkinOutSample = "Pipkin Across Samples"
 export const RatioLinechart= "Ratio Linechart"
 
 export const RatioHeatmap = "Ratio Heatmap"

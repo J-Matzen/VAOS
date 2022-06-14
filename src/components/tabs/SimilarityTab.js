@@ -92,7 +92,7 @@ function SimilarityTab({ data, sampleNames, value, proj, paperPadding, paperThem
                 size="small"
               >
                 <ToggleButton value={cons.PipkinInSample} sx={{ backgroundColor: "warning.main", color: paperThemeColor }}>Within Sample</ToggleButton>
-                <ToggleButton value={cons.PipkinOutSample} sx={{ backgroundColor: "warning.main", color: paperThemeColor }}>Across Sample</ToggleButton>
+                <ToggleButton value={cons.PipkinOutSample} sx={{ backgroundColor: "warning.main", color: paperThemeColor }}>Across Samples</ToggleButton>
               </ToggleButtonGroup>
             </DialogContent>
           </Dialog>
