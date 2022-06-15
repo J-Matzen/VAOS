@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, TextField, MenuItem, Tab, Container, Divider, Box, Paper, Button, IconButton, Fab, ToggleButton, ToggleButtonGroup, Dialog, DialogActions, DialogTitle, DialogContent, ListItem, List, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import { Grid, Typography, TextField, MenuItem, Divider, Paper } from '@mui/material';
 import ChartTypeSelector from '../ChartTypeSelector';
 import * as cons from "../../constants/plotNames";
 
 function RatioTab({ data, sampleNames, value, proj, paperPadding, paperThemeColor, paperTextColor, files }) {
   const [selectedRatioChartType, setRatioChartType] = React.useState(cons.RatioLinechart)
-  const [projection, setProjection] = React.useState('Elastic')
   const [ratio, setRatio] = React.useState('Stiffening')
   const [selectedView, setView] = React.useState("Frequency")
   const [tab, setTab] = React.useState('')

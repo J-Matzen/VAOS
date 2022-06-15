@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 import { SamplesColors } from '../../constants/colors';
-import { InfoSharp } from '@mui/icons-material';
 
 // set the dimensions and margins of the graph
 const margin = {

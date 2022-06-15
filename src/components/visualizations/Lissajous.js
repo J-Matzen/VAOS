@@ -1,19 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
-import { Box, Container } from '@mui/material';
 
-/*
-TODO: Fix dynamic load of axis names - somewhat done, still need a fix for the line function
-TODO: Make max/min look at all samples
-TODO: MAke Legend take different graph names
-TODO: Make legend interactable
-TODO: Make minimap of where you are in zoom - in order to get overview
-TODO: Add Chebyshev coefficients line plot
-TODO: Add units to list
-
-todos somewhere in the future:
-TODO: Scale stroke when zooming so slimmer at max zoom to give more detail
-*/
 const dimensions = {
     width: 545,
     height: 425,

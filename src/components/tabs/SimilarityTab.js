@@ -1,28 +1,23 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, TextField, MenuItem, Tab, Container, Divider, Box, Paper, Button, IconButton, Fab, ToggleButton, ToggleButtonGroup, Dialog, DialogActions, DialogTitle, DialogContent, ListItem, List, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import { Grid, Typography, Container, Paper, Fab, ToggleButton, ToggleButtonGroup, Dialog, DialogTitle, DialogContent } from '@mui/material';
 import ChartTypeSelector from '../ChartTypeSelector';
 import { StandardColors } from '../../constants/colors';
 import * as cons from "../../constants/plotNames";
 import SimilarityChart from '../visualizations/SimilarityChart';
 import SimilarityHeatmap from '../visualizations/SimilarityHeatmap';
 import SimilarityNetwork from '../visualizations/SimilarityNetwork';
-import { DashboardCustomize, Settings } from '@mui/icons-material';
+import { Settings } from '@mui/icons-material';
 
 function SimilarityTab({ data, sampleNames, value, proj, paperPadding, paperThemeColor, paperTextColor, files }) {
   // const [selectedLissajousChartType, setLissajousChartType] = React.useState(cons.TwoDLissajous)
-  const [selectedSample, setSamp] = React.useState(sampleNames[0])
-  const [selectedSampleData, setSelectedSampleData] = React.useState([])
-  const [alignment, setAlignment] = React.useState('Standard');
   const [projection, setProjection] = React.useState('Elastic')
   const [selectedColorScheme, setColorScheme] = React.useState(StandardColors)
   const [selectedPipkinChartType, setPipkinChartType] = React.useState(cons.PipkinOutSample)
 
   const [tab, setTab] = React.useState('')
-  const projections = cons.projections
   const [selectedProjection, setSelectedProjection] = React.useState(proj.get(projection))
   //Dialog states
   const [openProjSettings, setOpenProjSettings] = React.useState(false);
-  const [removal, setRemoval] = React.useState(null)
   const [projectionAlignment, setProjectionAlignment] = React.useState('Elastic');
   const [pipkinAlignment, setPipkinAlignment] = React.useState(cons.PipkinOutSample);
 

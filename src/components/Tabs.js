@@ -389,7 +389,7 @@ function Tabs() {
                 </TextField>
               </Box>
               {(selectedChartType !== cons.TwoDLissajous && selectedChartType !== cons.ThreeDLissajous && selectedChartType !== '' &&
-                selectedChartType != cons.SimilarityNetwork && selectedChartType != cons.SimilarityHeatmap && selectedChartType != cons.SimilarityChart &&
+                selectedChartType !== cons.SimilarityNetwork && selectedChartType !== cons.SimilarityHeatmap && selectedChartType !== cons.SimilarityChart &&
                 selectedChartType !== cons.AreaLayoverNameOut && selectedChartType !== cons.TwoDLayoverNameOut && selectedChartType !== cons.RatioLinechart) &&
                 <React.Fragment>
                   <Typography variant='subtitle2' align="left" mt={1} mx={"2"}>Select File</Typography>
@@ -697,10 +697,10 @@ function Tabs() {
     var chartIndexes = Array.from(Array(gridChartSettings.length).keys())
     //Used to send the data of the chosen sample to the different charts, first finds data related to selected sample, then sets the selected data if something has been found
     useEffect(() => {
-      if (data !== null) {
+      if (data) {
         var dataSample = data.find(sample => sample.name === selectedSettingsSample)
       }
-      if (dataSample != null) {
+      if (dataSample) {
         setSelectedSettingsSampleData(dataSample.data)
       }
     }, [data, selectedSettingsSample, sampleNames, selectedSettingsFile])
@@ -724,8 +724,7 @@ function Tabs() {
 
     //Handles a change in network legend
     const handleLegendSettingsChange = (event, newAlignment) => {
-      if (newAlignment !== null) {
-
+      if (newAlignment) {
         if (newAlignment === "Strain Colors") {
           setSelectedSettingsNetworkGraphLegend(true)
         } else if (newAlignment === "Sample Colors") {
@@ -741,7 +740,6 @@ function Tabs() {
       gridChartSettingsCopy.splice(index, 1)
       setGridChartSettings(gridChartSettingsCopy)
       sendSettingsToStorage()
-
     }
 
     function gridMove(settings, fromIndex, toIndex) {
@@ -845,8 +843,8 @@ function Tabs() {
                         </TextField>
                       </Box>
                       {(selectedSettingsChartType !== cons.TwoDLissajous && selectedSettingsChartType !== cons.ThreeDLissajous &&
-                        selectedSettingsChartType !== '' && selectedSettingsChartType != cons.SimilarityNetwork &&
-                        selectedSettingsChartType != cons.SimilarityHeatmap && selectedSettingsChartType != cons.SimilarityChart &&
+                        selectedSettingsChartType !== '' && selectedSettingsChartType !== cons.SimilarityNetwork &&
+                        selectedSettingsChartType !== cons.SimilarityHeatmap && selectedSettingsChartType !== cons.SimilarityChart &&
                         selectedSettingsChartType !== cons.AreaLayoverNameOut && selectedSettingsChartType !== cons.TwoDLayoverNameOut && selectedSettingsChartType !== cons.RatioLinechart) &&
                         <React.Fragment>
                           <Typography variant='subtitle2' align="left" mt={1} mx={"2"}>Select File</Typography>

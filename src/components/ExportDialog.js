@@ -91,7 +91,7 @@ function ExportDialog() {
   //Used to send the data of the chosen sample to the different charts, first finds data related to selected sample, then sets the selected data if something has been found
   useEffect(() => {
     var dataSample = data.find(sample => sample.name + " - " + sample.strainPercent + "%" === selectedSample)
-    if (dataSample != null) {
+    if (dataSample) {
       setSelectedSampleData(dataSample.data)
     }
   }, [data, selectedSample])
@@ -273,7 +273,7 @@ function ExportDialog() {
             </TextField>
           </Box>
           {(selectedChartType !== cons.TwoDLissajous && selectedChartType !== cons.ThreeDLissajous && selectedChartType !== '' &&
-            selectedChartType != cons.SimilarityNetwork && selectedChartType != cons.SimilarityHeatmap && selectedChartType != cons.SimilarityChart &&
+            selectedChartType !== cons.SimilarityNetwork && selectedChartType !== cons.SimilarityHeatmap && selectedChartType !== cons.SimilarityChart &&
             selectedChartType !== cons.AreaLayoverNameOut && selectedChartType !== cons.TwoDLayoverNameOut && selectedChartType !== '') &&
             <React.Fragment>
               <Typography variant='subtitle2' align="left" mt={1} mx={"2"}>Select File</Typography>

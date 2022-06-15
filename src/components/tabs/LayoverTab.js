@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, TextField, MenuItem, Tab, Container, Divider, Box, Paper, Button, IconButton, Fab, ToggleButton, ToggleButtonGroup, Dialog, DialogActions, DialogTitle, DialogContent, ListItem, List, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import { Grid, Typography, TextField, MenuItem, Container, Divider, Paper } from '@mui/material';
 import { tabChartTypes, graphTypes } from "../../constants/tabChartTypes";
 import ChartTypeSelector from '../ChartTypeSelector';
 import * as cons from "../../constants/plotNames";
@@ -8,15 +8,10 @@ import { StandardColors } from '../../constants/colors';
 
 function LayoverTab({ data, sampleNames, value, proj, paperPadding, paperThemeColor, paperTextColor, files }) {
   const [selectedLayoverChartType, setLayoverChartType] = React.useState(cons.TwoDLayoverName)
-  const [projection, setProjection] = React.useState('Elastic')
-
   const [selectedFile, setFile] = React.useState(data[0].fileName);
-  const [alignment, setAlignment] = React.useState('Standard');
   const [selectedColorScheme, setColorScheme] = React.useState(StandardColors)
   const [tab, setTab] = React.useState('')
   const [selectedStrain, setStrain] = React.useState("0.1%")
-
-  var colorSchemes = [StandardColors]
 
   var strainPercentages = new Set()
   data.map(element => {

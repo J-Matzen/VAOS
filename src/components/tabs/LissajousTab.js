@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, TextField, MenuItem, Tab, Container, Divider, Box, Paper, Button, IconButton, Fab, ToggleButton, ToggleButtonGroup, Dialog, DialogActions, DialogTitle, DialogContent, ListItem, List, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import { Grid, Typography, TextField, MenuItem, Container, Divider, Box, Paper, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { tabChartTypes, graphTypes } from "../../constants/tabChartTypes";
 import ChartTypeSelector from '../ChartTypeSelector';
 import { StandardColors } from '../../constants/colors';
@@ -18,7 +18,7 @@ function LissajousTab({ data, sampleNames, value, proj, paperPadding, paperTheme
   //Used to send the data of the chosen sample to the different charts, first finds data related to selected sample, then sets the selected data if something has been found
   useEffect(() => {
     var dataSample = data.find(sample => sample.name + " - " + sample.strainPercent + "%" === selectedSample)
-    if (dataSample != null) {
+    if (dataSample !== null) {
       setSelectedSampleData(dataSample.data)
     }
   }, [data, selectedSample])

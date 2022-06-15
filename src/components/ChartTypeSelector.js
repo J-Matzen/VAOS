@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import AreaChart from "./visualizations/AreaChart";
 import LayoverPlot from "./visualizations/LayoverPlot";
 import LayoverPlot3D from "./visualizations/LayoverPlot3D";

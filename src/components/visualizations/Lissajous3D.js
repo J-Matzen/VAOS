@@ -4,7 +4,6 @@ import * as echarts from 'echarts/core'
 import { Button, ButtonGroup, Grid, Box, Container } from '@mui/material';
 import 'echarts-gl';
 
-
 const dimensions = {
     width: 800, height: 700
 };
