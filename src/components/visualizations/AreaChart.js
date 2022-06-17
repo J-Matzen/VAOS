@@ -182,6 +182,26 @@ function AreaChart(props) {
       .style("font", tickTextSize + pxTextFont)
       .call(d3.axisLeft(y).tickSize(6).ticks(yTickamount, "s"));
 
+    //gridlines
+    svg.append("g")
+      .attr("id", "yAxisGrid")
+      .style("stroke-width", 0.2)
+      .call(d3.axisLeft(y)
+        .tickSize(-width)
+        .tickFormat('')
+        .ticks(yTickamount, "s")
+        .tickSizeOuter(0));
+
+    svg.append("g")
+      .attr("id", "xAxisGrid")
+      .attr("transform", `translate(0, ${height})`)
+      .style("stroke-width", 0.2)
+      .call(d3.axisBottom(x)
+        .tickSize(-height)
+        .tickFormat('')
+        .ticks(xTickamount, "s")
+        .tickSizeOuter(0));
+
     if (showTitle || customTitles) {
       //x-axis title
       svg.append("text")
