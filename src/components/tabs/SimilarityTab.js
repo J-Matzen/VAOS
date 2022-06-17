@@ -31,7 +31,7 @@ function SimilarityTab({ data, sampleNames, value, proj, paperPadding, paperThem
     setOpenProjSettings(false);
   };
   const handleProjectionChange = (event, newAlignment) => {
-    if (newAlignment !== null) {
+    if (newAlignment) {
       setProjectionAlignment(newAlignment)
       setSelectedProjection(proj.get(newAlignment))
       setProjection(newAlignment)
@@ -39,7 +39,7 @@ function SimilarityTab({ data, sampleNames, value, proj, paperPadding, paperThem
   }
 
   const handlePipkinChange = (event, newAlignment) => {
-    if (newAlignment !== null) {
+    if (newAlignment) {
       setPipkinAlignment(newAlignment)
       setPipkinChartType(newAlignment)
     }

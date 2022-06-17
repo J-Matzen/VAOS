@@ -18,7 +18,7 @@ function LissajousTab({ data, sampleNames, value, proj, paperPadding, paperTheme
   //Used to send the data of the chosen sample to the different charts, first finds data related to selected sample, then sets the selected data if something has been found
   useEffect(() => {
     var dataSample = data.find(sample => sample.name + " - " + sample.strainPercent + "%" === selectedSample)
-    if (dataSample !== null) {
+    if (dataSample) {
       setSelectedSampleData(dataSample.data)
     }
   }, [data, selectedSample])
