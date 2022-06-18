@@ -71,7 +71,7 @@ function PipkinTab({ data, sampleNames, value, proj, paperPadding, paperThemeCol
 
           <Grid item xs={9}>
             <Paper sx={{ width: "100%", height: "100%", bgcolor: paperThemeColor, color: paperTextColor, padding: paperPadding, textAlign: 'end', mb: 2 }}>
-              <Typography variant="h5" align="center" sx={{ mb: 4 }} >{selectedPipkinChartType + ": " + projection}</Typography>
+            <Typography variant="h5" align="center" sx={{ mb: 4 }} >{selectedPipkinChartType + ": " + selectedProjection.y.split("[")[0] + " vs. " + selectedProjection.x.split("[")[0] }</Typography>
               <Container align="center">
                 <ChartTypeSelector selectedChartType={selectedPipkinChartType} data={data} selectedProjection={selectedProjection} selectedFile={selectedFile} selectedColorScheme={selectedColorScheme} graphSize={{ width: 900, height: 700 }}> </ChartTypeSelector>
               </Container>

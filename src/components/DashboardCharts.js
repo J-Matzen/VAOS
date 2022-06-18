@@ -120,7 +120,15 @@ function DashboardCharts({ gridChartSettings, data }) {
           justifyContent: "center", width: `${elementGridSize * 19 + 10}px`, height: "100%", bgcolor: paperThemeColor, color: paperTextColor, padding: paperPadding, mb: 0
         }} key={index} >
           <Container >
-            <Typography variant="h5" align="center" >{element.selectedChartType}</Typography>
+          {(element.selectedChartType === cons.SimilarityHeatmap || element.selectedChartType === cons.SimilarityNetwork || element.selectedChartType === cons.SimilarityChart || element.selectedChartType === cons.PipkinInSample || element.selectedChartType === cons.PipkinOutSample) ?
+              <Typography variant="h5" align="center" >{element.selectedChartType + ": " + element.selectedProjection.y.split("[")[0] + " vs. " + element.selectedProjection.x.split("[")[0]}</Typography>
+              :
+              ((element.selectedChartType === cons.RatioHeatmap) ?
+              <Typography variant="h5" align="center" >{element.selectedChartType+ ": "+ element.ratioValue}</Typography>
+              :
+              <Typography variant="h5" align="center" >{element.selectedChartType}</Typography>
+              )
+            }
             <ChartTypeSelector selectedChartType={element.selectedChartType} selectedSampleData={checkSelectedSampleData(element)}
               data={data} selectedProjection={element.selectedProjection} selectedFile={element.selectedFile} selectedColorScheme={element.selectedColorScheme}
               graphSize={elementGraphSize} ratioValue={element.ratioValue} proj={element.proj} oldLegends={element.oldLegends} view={element.view} percent={element.percent}
