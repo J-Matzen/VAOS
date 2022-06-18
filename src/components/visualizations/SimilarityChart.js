@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 import { useSelector } from 'react-redux';
 import { PerfectElasticColor, PerfectViscousColor, SamplesColors } from '../../constants/colors';
-import { ElasticStress, ViscousStress } from '../../constants/attributes';
+import { ElasticStress, PerfectElastic, PerfectViscous, ViscousStress } from '../../constants/attributes';
 
 // set the dimensions and margins of the graph
 const margin = { top: 40, right: 100, bottom: 40, left: 40 }
@@ -18,11 +18,11 @@ function SimilarityChart(props) {
   const ref = useRef()
   useEffect(() => {
     var data = viscousSimilarity;
-    var perfectName = ViscousStress;
+    var perfectName = PerfectViscous;
     var perfectColor = PerfectViscousColor;
     if (props.projection === "Elastic") {
       data = elasticSimilarity
-      perfectName = ElasticStress;
+      perfectName = PerfectElastic;
       perfectColor = PerfectElasticColor;
     }
 

@@ -30,3 +30,12 @@ code {
 .excel-table td {
   padding: 5px 10px;
 }
+
+.tooltip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}

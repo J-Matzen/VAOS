@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 import { useSelector } from 'react-redux';
-import { ElasticStress, ViscousStress } from '../../constants/attributes';
+import { ElasticStress, PerfectElastic, PerfectViscous, ViscousStress } from '../../constants/attributes';
 
 // set the dimensions and margins of the graph
 const margin = {
@@ -22,10 +22,10 @@ function SimilarityHeatmap(props) {
   var ref = useRef();
   useEffect(() => {
     var data = viscousSimilarity;
-    var stress = ViscousStress
+    var stress = PerfectViscous;
     if (props.projection === "Elastic") {
-      data = elasticSimilarity
-      stress = ElasticStress
+      data = elasticSimilarity;
+      stress = PerfectElastic;
     }
 
     let perfectData = data.filter(sheet => ((sheet.first === stress) || (sheet.second === stress)) &&
@@ -58,13 +58,11 @@ function SimilarityHeatmap(props) {
 
     var x = d3.scaleBand()
       .range([0, width])
-      .domain(sheetNames)
-      .padding(0.01);
+      .domain(sheetNames);
 
     var y = d3.scaleBand()
       .range([height, 0])
-      .domain(sheetNames)
-      .padding(0.01);
+      .domain(sheetNames);
 
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -135,18 +133,12 @@ function SimilarityHeatmap(props) {
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0)
-      .style("background-color", "white")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px")
       .style("position", "absolute")
       .style("pointer-events", "none")
       .style("text-align", "center")
       .style("font", "15px sans-serif")
-      .style("padding", "2px")
 
-    var highlight = svg.append('rect')
+    svg.append('rect')
       .attr("id", "highlight")
       .attr("width", width)
       .attr("height", y.bandwidth())
@@ -166,8 +158,8 @@ function SimilarityHeatmap(props) {
       .attr("class", function (d) { return "simHeat " + d.second.replace(/(\s+|,+|\.+)/g, ''); })
       .attr("x", function (d) { return x(d.first); })
       .attr("y", function (d) { return y(d.second) })
-      .attr("width", x.bandwidth())
-      .attr("height", y.bandwidth())
+      .attr("width", x.bandwidth() - 0.5)
+      .attr("height", y.bandwidth() - 0.5)
       .style("fill", function (d) { return colorScale(d.similarityPercent); })
       .on("mouseover", function (event, d) {
         mouseOver(event, { name: this.id });
@@ -177,7 +169,7 @@ function SimilarityHeatmap(props) {
       })
       .on("mousemove", function (event, obj) {
         tooltip
-          .html("Value:<br> " + obj.similarityPercent)
+          .html(obj.first + " - <span style='color:red'>" + obj.second +"</span>:<br> " + obj.similarityPercent.toFixed(2))
           .style("left", (event.pageX) + "px")
           .style("top", (event.pageY) + "px")
       })
@@ -198,8 +190,8 @@ function SimilarityHeatmap(props) {
       .attr("class", function (d) { return "simHeat " + d.second.replace(/(\s+|,+|\.+)/g, ''); })
       .attr("x", function (d) { return x(d.first); })
       .attr("y", function (d) { return y(d.second) })
-      .attr("width", x.bandwidth())
-      .attr("height", y.bandwidth())
+      .attr("width", x.bandwidth() - 0.5)
+      .attr("height", y.bandwidth() - 0.5)
       .style("fill", function (d) { return colorScale(d.similarityPercent); })
       .on("mouseover", function (event, d) {
         mouseOver(event, { name: this.second });
@@ -209,7 +201,7 @@ function SimilarityHeatmap(props) {
       })
       .on("mousemove", function (event, obj) {
         tooltip
-          .html("Compared to Perfect:<br> " + obj.similarityPercent)
+          .html(obj.first + " - <span style='color:red'>"+ stress +"</span>:<br> " + obj.similarityPercent.toFixed(2))
           .style("left", (event.pageX) + "px")
           .style("top", (event.pageY) + "px")
       })
@@ -222,14 +214,12 @@ function SimilarityHeatmap(props) {
         lineOpacityToggle = result.newLineOpacityToggle;
       });
 
-
     // Make black lines around samples
     var sampleCountArray = []
     var sampleCount = 0;
-    let firstInSet = [...sheetNames][0]
-    var lastSample = sheetNames.size > 0 ? firstInSet.split(" ")[0] : "";
-
-    sheetNames.forEach((sheet) => {
+    let sheetNamesArray = [...sheetNames].reverse();
+    var lastSample = sheetNames.size > 0 ? sheetNamesArray[0].split(" ")[0] : "";
+    sheetNamesArray.forEach((sheet) => {
       let sample = sheet.split(" ")[0];
       if (sample !== lastSample) {
         lastSample = sample;
@@ -240,7 +230,7 @@ function SimilarityHeatmap(props) {
     });
 
     var lastPlacementY = 0;
-    var lastPlacementX = 0;
+    var lastPlacementX = width;
     sampleCountArray.forEach((count) => {
       let currentLengthY = y.bandwidth() * count
       lastPlacementY = lastPlacementY  + currentLengthY
@@ -252,7 +242,7 @@ function SimilarityHeatmap(props) {
         .attr("fill", "white")
       
       let currentLengthX = x.bandwidth() * count
-      lastPlacementX = lastPlacementX  + currentLengthX
+      lastPlacementX = lastPlacementX - currentLengthX
       svg.append("rect")
         .attr("x", lastPlacementX)
         .attr("y", 0)

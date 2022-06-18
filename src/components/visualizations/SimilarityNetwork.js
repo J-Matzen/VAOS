@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from "d3";
 import { useSelector } from 'react-redux';
 import { PerfectElasticColor, PerfectViscousColor, SamplesColors } from '../../constants/colors';
-import { ElasticStress, ViscousStress } from '../../constants/attributes';
+import { ElasticStress, PerfectElastic, PerfectViscous, ViscousStress } from '../../constants/attributes';
 
 // set the dimensions and margins of the graph
 const margin = { top: 20, right: 20, bottom: 50, left: 20 }
@@ -19,10 +19,10 @@ function SimilarityNetwork(props) {
   // const oldLegends = true;
 
   var similarityData = viscousSimilarity;
-  var stress = ViscousStress;
+  var stress = PerfectViscous;
   if (props.projection === "Elastic") {
     similarityData = elasticSimilarity;
-    stress = ElasticStress;
+    stress = PerfectElastic;
   }
 
   var ref = useRef()
@@ -34,8 +34,13 @@ function SimilarityNetwork(props) {
         return;
       }
       let split = sheet.first.split(" ");
-      sampleNames.add(split[0])
-      amplitudeNames.add(parseFloat(split[1]))
+
+      if(isNaN(split[1])) {
+        sampleNames.add(sheet.first)
+      } else {
+        sampleNames.add(split[0])
+        amplitudeNames.add(parseFloat(split[1]))
+      }
     });
     sampleNames = [...sampleNames];
     amplitudeNames = [...amplitudeNames];
@@ -64,7 +69,6 @@ function SimilarityNetwork(props) {
     })
     nodeNames = [...nodeNames];
 
-    var simDistScaleConst = 100
     var similaritiesArray = []
     var edges = []
     similarityData.forEach((edge, index) => {
@@ -225,6 +229,10 @@ function SimilarityNetwork(props) {
     nodes.forEach((sheet) => {
       // Create sample symbols + coloring
       let sheetNameSplit = sheet.name.split(" ")
+      if (isNaN(sheetNameSplit[1])) {
+        sheetNameSplit = [sheet.name, undefined]
+      }
+      
       if (sheetNameSplit[0] != previousName) {
         previousName = sheetNameSplit[0]
 
@@ -311,16 +319,10 @@ function SimilarityNetwork(props) {
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0)
-      .style("background-color", "white")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px")
       .style("position", "absolute")
       .style("pointer-events", "none")
       .style("text-align", "center")
       .style("font", "15px sans-serif")
-      .style("padding", "2px")
 
   }, [props.projection, props.dimensions, props.data, props.oldLegends])
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSimilarity } from '../../slices/similaritySlice';
-import { ElasticStress, Strain, StrainRate, Stress, ViscousStress } from '../../constants/attributes';
+import { ElasticStress, PerfectElastic, PerfectViscous, Strain, StrainRate, Stress, ViscousStress } from '../../constants/attributes';
 import DynamicTimeWarping from 'dynamic-time-warping-2'
 import * as d3 from "d3";
 
@@ -174,8 +174,8 @@ const calculateSimilarities = (data) => {
       elasticPerfectData.push({ x: p, y: p });
     };
 
-    elasticLissajousLineData.push({ name: ElasticStress, data: elasticPerfectData });
-    viscousLissajousLineData.push({ name: ViscousStress, data: viscousPerfectData });
+    elasticLissajousLineData.push({ name: PerfectElastic, data: elasticPerfectData });
+    viscousLissajousLineData.push({ name: PerfectViscous, data: viscousPerfectData });
   }
 
   let tempElastic = calculationDistAndSim(elasticLissajousLineData)
