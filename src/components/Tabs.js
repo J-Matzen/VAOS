@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import * as cons from "../constants/plotNames";
 import { graphTypes } from "../constants/tabChartTypes";
+import * as templates from "../constants/templates";
+import { StandardColors } from '../constants/colors';
 
 import { Grid, Typography, TextField, MenuItem, Tab, Box, Button, IconButton, Fab, ToggleButton, ToggleButtonGroup, Dialog, DialogActions, DialogTitle, DialogContent, ListItem, List, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -8,9 +10,8 @@ import { useSelector } from 'react-redux'
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { Clear, DashboardCustomize, Timeline, Dashboard, Settings } from '@mui/icons-material';
+import { Clear, DashboardCustomize, Timeline, Dashboard, Settings, Add } from '@mui/icons-material';
 import DashboardCharts from './DashboardCharts';
-import { StandardColors } from '../constants/colors';
 import LissajousTab from './tabs/LissajousTab';
 import PipkinTab from './tabs/PipkinTab';
 import LayoverTab from './tabs/LayoverTab';
@@ -65,83 +66,10 @@ function Tabs() {
   })
   strainPercentages.add("All");
 
-  var similarityGridChartTemplate = [
-    {
-      selectedChartType: cons.SimilarityChart, selectedSampleData: [], selectedSample: " - 0%",
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: projection, selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening"
-    },
-    {
-      selectedChartType: cons.SimilarityNetwork, selectedSampleData: [], selectedSample: " - 0%",
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: projection, selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening", oldLegends: true
-    },
-    {
-      selectedChartType: cons.PipkinOutSample, selectedSampleData: [], selectedSample: " - 0%",
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: projection, selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening", template: true
-    },
-    {
-      selectedChartType: cons.SimilarityHeatmap, selectedSampleData: [], selectedSample: " - 0%",
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: projection, selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening"
-    },
-  ]
+  var similarityGridChartTemplate = templates.similarityGridChartTemplate()
+  var mitLaosGridChartTemplate = templates.mitLaosGridChartTemplate(selectedSample, selectedFile)
+  var evolutionGridChartTemplate = templates.evolutionGridChartTemplate(selectedSample, selectedFile)
 
-
-  var mitLaosGridChartTemplate = [
-    {
-      selectedChartType: cons.PipkinOutSample, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: "Elastic", selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening", template: true
-    },
-    {
-      selectedChartType: cons.TwoDLissajous, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: "Elastic", selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening"
-    },
-
-    {
-      selectedChartType: cons.PipkinOutSample, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain Rate [Hz]', y: 'Stress [Pa]', z: 'ViscousStress' }, proj: "Viscous", selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening", template: true
-    },
-    {
-      selectedChartType: cons.TwoDLissajous, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain Rate [Hz]', y: 'Stress [Pa]', z: 'ViscousStress' }, proj: "Viscous", selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening"
-    },
-  ]
-
-
-  var evolutionGridChartTemplate = [
-    {
-      selectedChartType: cons.PipkinOutSample, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: "Elastic", selectedFile: selectedFile, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening", template: true
-    },
-    {
-      selectedChartType: cons.TwoDLissajous, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: "Elastic", selectedFile: undefined, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening"
-    },
-    {
-      selectedChartType: cons.TwoDLayoverName, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: "Elastic", selectedFile: selectedFile, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening", template: false, view: "Samples", graphSize: { width: 900, height: 900 }
-    },
-
-    {
-      selectedChartType: cons.RatioLinechart, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: "Elastic", selectedFile: selectedFile, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Stiffening", template: false, view: "Samples"
-    },
-    {
-      selectedChartType: cons.RatioLinechart, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain [-]', y: 'Stress [Pa]', z: 'ElasticStress' }, proj: "Elastic", selectedFile: selectedFile, selectedColorScheme: StandardColors
-      , alignment: "Standard", ratioValue: "Thickening", template: false, view: "Samples"
-    },
-  ]
 
   //fetches the settings from storage on mount, and then will only run when a new template is chosen.
   useEffect(() => {
@@ -339,7 +267,7 @@ function Tabs() {
         {/* Add dialog construction */}
         <React.Fragment>
           <Fab size="small" color="primary" aria-label="add" sx={{ margin: 0, top: '20', left: 'auto', bottom: 20, right: 20, position: 'fixed' }} onClick={handleClickOpenAdd}>
-            <DashboardCustomize />
+            <Add />
           </Fab>
           <Dialog
             open={openAdd}
@@ -573,7 +501,7 @@ function Tabs() {
               </Box>
             </DialogActions>
           </Dialog>
-          <Fab size="small" color="primary" aria-label="add" sx={{ margin: 0, top: '20', left: 'auto', bottom: 70, right: 20, position: 'fixed' }} onClick={handleClickOpenProjSettings}>
+          <Fab size="small" color="primary" aria-label="add" sx={{ margin: 0, top: '20', left: 'auto', bottom: 120, right: 20, position: 'fixed' }} onClick={handleClickOpenProjSettings}>
             <Settings />
           </Fab>
           <Dialog
@@ -791,7 +719,7 @@ function Tabs() {
 
     return (
       <React.Fragment>
-        <Fab size="small" color="primary" aria-label="remove" sx={{ margin: 0, top: '20', left: 'auto', bottom: 20, right: 70, position: 'fixed' }} onClick={handleClickOpenRemoval}>
+        <Fab size="small" color="primary" aria-label="remove" sx={{ margin: 0, top: '20', left: 'auto', bottom: 70, right: 20, position: 'fixed' }} onClick={handleClickOpenRemoval}>
           <Dashboard />
         </Fab>
         <Dialog

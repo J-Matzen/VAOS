@@ -6,6 +6,7 @@ import * as cons from "../constants/plotNames";
 
 function DashboardCharts({ gridChartSettings, data }) {
   const [gridItems, setGridItems] = React.useState([])
+  const [headline, setHeadline] = React.useState("")
 
   const theme = useTheme()
 
@@ -112,6 +113,22 @@ function DashboardCharts({ gridChartSettings, data }) {
         elementGraphSize = graphSizes[element.selectedChartType]
       }
 
+
+      function makePaperHeadline(element) {
+        // var headline = "placeholder"
+        if (element.selectedChartType === cons.SimilarityHeatmap || element.selectedChartType === cons.SimilarityNetwork || element.selectedChartType === cons.SimilarityChart || element.selectedChartType === cons.PipkinInSample || element.selectedChartType === cons.PipkinOutSample) {
+          return (element.selectedChartType + ": " + element.selectedProjection.y.split("[")[0] + " vs. " + element.selectedProjection.x.split("[")[0])
+        }
+        else if (element.selectedChartType === cons.RatioHeatmap) {
+          return (element.selectedChartType + ": " + element.ratioValue)
+        }
+        else {
+          return (element.selectedChartType)
+        }
+      }
+
+
+
       setGridItems((currentGridItems) => [...currentGridItems,
       <Grid item key={index} number={index} sx={{ mb: 4, mt: 0, mr: 5, height: "430px", width: `${elementGridSize * 19}px` }} >
         <Paper sx={{
@@ -120,15 +137,7 @@ function DashboardCharts({ gridChartSettings, data }) {
           justifyContent: "center", width: `${elementGridSize * 19 + 10}px`, height: "100%", bgcolor: paperThemeColor, color: paperTextColor, padding: paperPadding, mb: 0
         }} key={index} >
           <Container >
-          {(element.selectedChartType === cons.SimilarityHeatmap || element.selectedChartType === cons.SimilarityNetwork || element.selectedChartType === cons.SimilarityChart || element.selectedChartType === cons.PipkinInSample || element.selectedChartType === cons.PipkinOutSample) ?
-              <Typography variant="h5" align="center" >{element.selectedChartType + ": " + element.selectedProjection.y.split("[")[0] + " vs. " + element.selectedProjection.x.split("[")[0]}</Typography>
-              :
-              ((element.selectedChartType === cons.RatioHeatmap) ?
-              <Typography variant="h5" align="center" >{element.selectedChartType+ ": "+ element.ratioValue}</Typography>
-              :
-              <Typography variant="h5" align="center" >{element.selectedChartType}</Typography>
-              )
-            }
+            <Typography variant="h5" align="center" >{makePaperHeadline(element)}</Typography>
             <ChartTypeSelector selectedChartType={element.selectedChartType} selectedSampleData={checkSelectedSampleData(element)}
               data={data} selectedProjection={element.selectedProjection} selectedFile={element.selectedFile} selectedColorScheme={element.selectedColorScheme}
               graphSize={elementGraphSize} ratioValue={element.ratioValue} proj={element.proj} oldLegends={element.oldLegends} view={element.view} percent={element.percent}
