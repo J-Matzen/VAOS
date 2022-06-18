@@ -15,7 +15,7 @@ export const RatioHeatmap = "Ratio Heatmap"
 export const projections = ["Elastic", "Viscous"];
 
 export const SimilarityHeatmap = "Similarity Matrix"
-export const SimilarityChart = "Centerpoint distances"
+export const SimilarityChart = "Centerpoint Distances"
 export const SimilarityNetwork = "Similarity Map"
 
 export const PipkinTemplate = "Pipkin Template"
