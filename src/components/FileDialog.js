@@ -124,7 +124,7 @@ function FileDialog() {
         sampleName = sampleName[0].slice(1, -1);
       }
 
-      return { name: f.name, sheets: sheetnames, workbook: reader, activeSheets: sheetnames, strainC: strain, stressC: stress, freq: frequency, sampleName: sampleName }
+      return { name: f.name, sheets: sheetnames, workbook: reader, activeSheets: ["All"], strainC: strain, stressC: stress, freq: frequency, sampleName: sampleName }
     })
     const filesDone = await Promise.all(files);
 
@@ -134,7 +134,7 @@ function FileDialog() {
       workbook: filesDone[0].workbook,
       sheetNames: filesDone[0].sheets,
       selectedFileName: filesDone[0].name,
-      selectedActiveSheets: filesDone[0].sheets,
+      selectedActiveSheets: ["All"],
       selectedSheet: filesDone[0].sheets[0],
       strainC: filesDone[0].strainC,
       stressC: filesDone[0].stressC,

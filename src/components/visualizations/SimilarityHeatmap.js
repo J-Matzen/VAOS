@@ -14,23 +14,18 @@ const margin = {
 function SimilarityHeatmap(props) {
   const elasticSimilarity = useSelector((state) => state.similarity.elasticSimilarities)
   const viscousSimilarity = useSelector((state) => state.similarity.viscousSimilarities)
-  var data
-  var stress
-
 
   const graphSize = props.hasOwnProperty("dimensions") ? props.dimensions : { width: 525, height: 425 }
   const width = graphSize.width - margin.left - margin.right;
   const height = graphSize.height - margin.bottom - margin.top;
 
   var ref = useRef();
-
   useEffect(() => {
+    var data = viscousSimilarity;
+    var stress = ViscousStress
     if (props.projection === "Elastic") {
       data = elasticSimilarity
       stress = ElasticStress
-    } else {
-      data = viscousSimilarity
-      stress = ViscousStress
     }
 
     let perfectData = data.filter(sheet => ((sheet.first === stress) || (sheet.second === stress)) &&
@@ -195,6 +190,7 @@ function SimilarityHeatmap(props) {
         lineOpacityToggle = result.newLineOpacityToggle;
       });
 
+    // Diagonal squares
     svg.selectAll("rectHeat2")
       .data(perfectData)
       .enter()
@@ -225,6 +221,45 @@ function SimilarityHeatmap(props) {
         previousClickedSample = result.newPreviousClickedSample;
         lineOpacityToggle = result.newLineOpacityToggle;
       });
+
+
+    // Make black lines around samples
+    var sampleCountArray = []
+    var sampleCount = 0;
+    let firstInSet = [...sheetNames][0]
+    var lastSample = sheetNames.size > 0 ? firstInSet.split(" ")[0] : "";
+
+    sheetNames.forEach((sheet) => {
+      let sample = sheet.split(" ")[0];
+      if (sample !== lastSample) {
+        lastSample = sample;
+        sampleCountArray.push(sampleCount);
+        sampleCount = 0;
+      }
+      sampleCount = sampleCount + 1;
+    });
+
+    var lastPlacementY = 0;
+    var lastPlacementX = 0;
+    sampleCountArray.forEach((count) => {
+      let currentLengthY = y.bandwidth() * count
+      lastPlacementY = lastPlacementY  + currentLengthY
+      svg.append("rect")
+        .attr("x", 0)
+        .attr("y", lastPlacementY)
+        .attr("width", width)
+        .attr("height", 2)
+        .attr("fill", "white")
+      
+      let currentLengthX = x.bandwidth() * count
+      lastPlacementX = lastPlacementX  + currentLengthX
+      svg.append("rect")
+        .attr("x", lastPlacementX)
+        .attr("y", 0)
+        .attr("width", 2)
+        .attr("height", height)
+        .attr("fill", "white")
+    });
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////// Perfect legend
@@ -274,7 +309,7 @@ function SimilarityHeatmap(props) {
       return { newPreviousClickedSample, newLineOpacityToggle }
     }
 
-  }, [props, data]);
+  }, [props]);
 
   return (
     <svg
