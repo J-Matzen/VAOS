@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 import { createLissajous } from './Lissajous';
 import { MaxStressColor, StiffeningColor, ThickeningColor } from '../../constants/colors';
+import * as attr from '../../constants/plotAttributes';
 
 function Pipkin(props) {
   var ref = useRef();
@@ -75,8 +76,8 @@ export function createPipkin(data, settings) {
   var margin = {
     top: 20,
     right: 0,
-    bottom: 50,
-    left: 60
+    bottom: 75,
+    left: 75
   }
 
   const translation = settings.hasOwnProperty("translation") ? settings.translation : { x: margin.left, y: margin.top }
@@ -115,33 +116,41 @@ export function createPipkin(data, settings) {
     .paddingOuter(0.1)
 
   var xAxis = d3.axisBottom(x)
+    .tickSize(attr.tickSize)
+
   svg.append("g")
     .attr("class", "x-axis")
     .attr("transform", `translate(0, ${innerGraphSize.height})`)
+    .style("stroke-width", attr.axisStrokeWidth)
+    .style("font", attr.tickTextSize + "px sans-serif")
     .call(xAxis);
 
+  var yAxis = d3.axisLeft(y)
+    .tickSize(attr.tickSize)
+
   svg.append("g")
-    .call(d3.axisLeft(y));
+    .style("stroke-width", attr.axisStrokeWidth)
+    .style("font", attr.tickTextSize + "px sans-serif")
+    .call(yAxis);
 
   if (showTitle || customTitles) {
-
     //x-axis title
     svg.append("text")
       .attr("class", "x-label")
       .attr("text-anchor", "middle")
       .attr("x", innerGraphSize.width / 2)
-      .attr("y", innerGraphSize.height + margin.bottom / 1.2)
+      .attr("y", innerGraphSize.height + margin.bottom - 10)
+      .style("font", attr.axisTextSize + "px sans-serif")
       .text(axisTitles.x)
-
-
 
     //y-axis title
     svg.append("text")
       .attr("class", "y-label")
       .attr("text-anchor", "middle")
       .attr("x", -innerGraphSize.height / 2)
-      .attr("y", -45)
+      .attr("y", -margin.left + 20)
       .attr("transform", "rotate(-90)")
+      .style("font", attr.axisTextSize + "px sans-serif")
       .text(axisTitles.y);
   }
 
@@ -235,6 +244,7 @@ export function createPipkin(data, settings) {
   var lissajousSettings = {
     svg: svg,
     graphSize: lissajousSize,
+    graphStrokeWidth: 1.5,
     translation: { x: 0, y: 0 },
     showAxis: false,
     showTitle: false,

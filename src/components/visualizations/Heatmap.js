@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
+import * as attr from '../../constants/plotAttributes';
 
 const dimensions = {
   width: 545,
   height: 425,
 };
-const { width, height } = dimensions;
 
 function Heatmap(props) {
   const [graphSize, setGraphSize] = React.useState(dimensions)
@@ -110,8 +110,8 @@ export function createHeatmap(data, settings) {
   const margin = {
     top: 20,
     right: 65,
-    bottom: 60,
-    left: 60
+    bottom: 75,
+    left: 75
   };
   const translation = settings.hasOwnProperty("translation") ? settings.translation : { x: margin.left, y: margin.top }
   const innerGraphSize = {
@@ -144,9 +144,9 @@ export function createHeatmap(data, settings) {
 
   svg.append("g")
     .attr("transform", "translate(0," + gridHeight + ")")
-    .call(d3.axisBottom(x))
-
-
+    .style("font", attr.tickTextSize + "px sans-serif")
+    .style("stroke-width", attr.axisStrokeWidth)
+    .call(d3.axisBottom(x).tickSize(attr.tickSize))
 
   // Build y scale and axis:
   var y = d3.scaleBand()
@@ -155,7 +155,9 @@ export function createHeatmap(data, settings) {
     .padding(0.01);
 
   svg.append("g")
-    .call(d3.axisLeft(y));
+    .style("font", attr.tickTextSize + "px sans-serif")
+    .style("stroke-width", attr.axisStrokeWidth)
+    .call(d3.axisLeft(y).tickSize(attr.tickSize));
 
   if (showTitle || customTitles) {
     svg.append("text")
@@ -163,7 +165,7 @@ export function createHeatmap(data, settings) {
       .attr("text-anchor", "middle")
       .attr('x', gridWidth / 2)
       .attr("y", gridHeight + margin.bottom - 20)
-      .style("font", "20px sans-serif")
+      .style("font", attr.axisTextSize + "px sans-serif")
       .text(axisTitles.x)
 
     svg.append("text")
@@ -172,7 +174,7 @@ export function createHeatmap(data, settings) {
       .attr("x", -gridHeight / 2)
       .attr("y", -margin.left + 20)
       .attr("transform", "rotate(-90)")
-      .style("font", "20px sans-serif")
+      .style("font", attr.axisTextSize + "px sans-serif")
       .text(axisTitles.y);
   }
 

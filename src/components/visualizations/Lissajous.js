@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
+import * as attr from '../../constants/plotAttributes';
 
 const dimensions = {
     width: 545,
     height: 425,
 };
-const { width, height } = dimensions;
 
 const Lissajous = (props) => {
     const [graphSize, setGraphSize] = React.useState(dimensions)
@@ -18,7 +18,7 @@ const Lissajous = (props) => {
         if (props.graphSize !== undefined) {
             setGraphSize(props.graphSize)
         }
-        createLissajous(data, { svg: svg, graphSize: graphSize, graphStrokeWidth: 4, showTitle: props.showTitle, axisTitles: props.axisTitles })
+        createLissajous(data, { svg: svg, graphSize: graphSize, showTitle: props.showTitle, axisTitles: props.axisTitles })
     }, [props, graphSize])
 
 
@@ -65,18 +65,17 @@ export function createLissajous(data, settings) {
     const svg = settings.svg
     const graphSize = settings.hasOwnProperty("graphSize") ? settings.graphSize : { width: 325, height: 325 }
     const enableLegend = settings.hasOwnProperty("enableLegend") ? settings.enableLegend : true
-    const graphStrokeWidth = settings.hasOwnProperty("graphStrokeWidth") ? settings.graphStrokeWidth : 1
+    const graphStrokeWidth = settings.hasOwnProperty("graphStrokeWidth") ? settings.graphStrokeWidth : 4
 
     //axis variables
-    const axisStrokeWidth = settings.hasOwnProperty("axisStrokeWidth") ? settings.axisStrokeWidth : 1
-    const axisTextSize = settings.hasOwnProperty("axisTextSize") ? settings.axisTextSize : 25
+    const axisStrokeWidth = settings.hasOwnProperty("axisStrokeWidth") ? settings.axisStrokeWidth : attr.axisStrokeWidth
+    const axisTextSize = settings.hasOwnProperty("axisTextSize") ? settings.axisTextSize : attr.axisTextSize
     const xAxisTicksTextYTranslation = settings.hasOwnProperty("xAxisTicksTextYTranslation") ? settings.xAxisTicksTextYTranslation : 15
-    const xTicks = settings.hasOwnProperty("xTicks") ? settings.xTicks : 5
-    const yTicks = settings.hasOwnProperty("yTicks") ? settings.yTicks : 10
-    const tickTextSize = settings.hasOwnProperty("tickTextSize") ? settings.tickTextSize : 15
-    const yTickSize = settings.hasOwnProperty("yTickSize") ? settings.yTickSize : 6
-    const xTickSize = settings.hasOwnProperty("xTickSize") ? settings.xTickSize : 6
-
+    const xTicks = settings.hasOwnProperty("xTicks") ? settings.xTicks : attr.xTicks
+    const yTicks = settings.hasOwnProperty("yTicks") ? settings.yTicks : attr.yTicks
+    const tickTextSize = settings.hasOwnProperty("tickTextSize") ? settings.tickTextSize : attr.tickTextSize
+    const yTickSize = settings.hasOwnProperty("yTickSize") ? settings.yTickSize : attr.tickSize
+    const xTickSize = settings.hasOwnProperty("xTickSize") ? settings.xTickSize : attr.tickSize
 
     var axisTitles = (settings.axisTitles !== undefined) ? settings.axisTitles : { x: data.xName, y: data.yName };
     var emptyTitlesCheck = (axisTitles.x !== "" || axisTitles.y !== "")
@@ -91,9 +90,9 @@ export function createLissajous(data, settings) {
 
     const margin = {
         right: enableLegend ? 120 : 10,
-        left: showAxis ? (graphSize.width / 6 + 5) : 0,
+        left: showAxis ? 75 : 0,
         top: 0,
-        bottom: showAxis ? (graphSize.height / 6 + 5) : 0
+        bottom: showAxis ? 75 : 0
     };
     const translation = settings.hasOwnProperty("translation") ? settings.translation : { x: margin.left, y: margin.top }
 
@@ -225,7 +224,6 @@ export function createLissajous(data, settings) {
         // set the font-size of the tick labels
         svgChart.selectAll(".axis")
             .style("font", tickTextSize + pxTextFont)
-
 
         //gridlines
         svgChart.append("g")

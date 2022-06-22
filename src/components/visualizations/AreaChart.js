@@ -1,28 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 import { SamplesColors } from '../../constants/colors';
+import * as attr from '../../constants/plotAttributes';
 
 // set the dimensions and margins of the graph
 const margin = {
   right: 110,
-  left: 90,
+  left: 75,
   top: 10,
-  bottom: 70
+  bottom: 75
 };
-
-//axis variables
-const xTickamount = 4
-const yTickamount = 5
-const tickTextSize = 15
-const axisStrokeWidth = 1
-const axisTextSize = 20
 
 //zoom constants
 const maxZoomLevel = 100;
-
-//legend creation
-const legendFontSize = 14;
-const pxTextFont = "px sans-serif";
 
 function findAngle(A, B, C) {
   var AB = Math.sqrt(Math.pow(B.x - A.x, 2) + Math.pow(B.y - A.y, 2));
@@ -171,16 +161,16 @@ function AreaChart(props) {
       .attr("transform", `translate(0, ${height})`)
       .attr("id", "xAxis")
       .attr("class", "axis")
-      .style("stroke-width", axisStrokeWidth)
-      .style("font", tickTextSize + pxTextFont)
-      .call(d3.axisBottom(x).tickSize(6).ticks(xTickamount, "s"));
+      .style("stroke-width", attr.axisStrokeWidth)
+      .style("font", attr.tickTextSize + "px sans-serif")
+      .call(d3.axisBottom(x).tickSize(6).ticks(attr.xTicks, "s"));
 
     svg.append("g")
       .attr("id", "yAxis")
       .attr("class", "axis")
-      .style("stroke-width", axisStrokeWidth)
-      .style("font", tickTextSize + pxTextFont)
-      .call(d3.axisLeft(y).tickSize(6).ticks(yTickamount, "s"));
+      .style("stroke-width", attr.axisStrokeWidth)
+      .style("font", attr.tickTextSize + "px sans-serif")
+      .call(d3.axisLeft(y).tickSize(6).ticks(attr.yTicks, "s"));
 
     //gridlines
     svg.append("g")
@@ -189,7 +179,7 @@ function AreaChart(props) {
       .call(d3.axisLeft(y)
         .tickSize(-width)
         .tickFormat('')
-        .ticks(yTickamount, "s")
+        .ticks(attr.yTicks, "s")
         .tickSizeOuter(0));
 
     svg.append("g")
@@ -199,7 +189,7 @@ function AreaChart(props) {
       .call(d3.axisBottom(x)
         .tickSize(-height)
         .tickFormat('')
-        .ticks(xTickamount, "s")
+        .ticks(attr.xTicks, "s")
         .tickSizeOuter(0));
 
     if (showTitle || customTitles) {
@@ -208,8 +198,8 @@ function AreaChart(props) {
         .attr("class", "x-label")
         .attr("text-anchor", "middle")
         .attr("x", width / 2)
-        .attr("y", height + margin.bottom - 5)
-        .style("font", axisTextSize + pxTextFont)
+        .attr("y", height + margin.bottom - 10)
+        .style("font", attr.axisTextSize + "px sans-serif")
         .text(axisTitles.x)
 
       //y-axis title
@@ -217,9 +207,9 @@ function AreaChart(props) {
         .attr("class", "y-label")
         .attr("text-anchor", "middle")
         .attr("x", -height / 2)
-        .attr("y", -margin.left + 15)
+        .attr("y", -margin.left + 20)
         .attr("transform", "rotate(-90)")
-        .style("font", axisTextSize + pxTextFont)
+        .style("font", attr.axisTextSize + "px sans-serif")
         .text(axisTitles.y);
     }
 
@@ -291,14 +281,9 @@ function AreaChart(props) {
         let colorName = "#2b2b2b";
         let brightness = amplitudeNames.indexOf(parseFloat(a));
         svgElement.append("text")
-          .attr("x", graphSize.width - 85)
-          .attr("y", yshiftStrain)
-          .text(a)
-
-        svgElement.append("text")
           .attr("x", graphSize.width - 100)
           .attr("y", yshiftStrain)
-          .text("%")
+          .text(a + "%")
 
         svgElement.append("rect")
           .attr("x", graphSize.width - 110)
@@ -331,10 +316,10 @@ function AreaChart(props) {
       var updatedy = event.transform.rescaleY(y);
 
       //apply new axis to x and y. transition is optional - can be added.
-      svg.selectAll("#xAxisGrid").call(d3.axisBottom(updatedx).tickSize(-height).tickFormat('').ticks(xTickamount, "s").tickSizeOuter(0));
-      svg.selectAll("#xAxis").call(d3.axisBottom(updatedx).tickSize(6).ticks(xTickamount, "s"));
-      svg.selectAll("#yAxis").call(d3.axisLeft(updatedy).tickSize(6).ticks(yTickamount, "s"));
-      svg.selectAll("#yAxisGrid").call(d3.axisLeft(updatedy).tickSize(-width).tickFormat('').ticks(yTickamount, "s").tickSizeOuter(0));
+      svg.selectAll("#xAxisGrid").call(d3.axisBottom(updatedx).tickSize(-height).tickFormat('').ticks(attr.xTicks, "s").tickSizeOuter(0));
+      svg.selectAll("#xAxis").call(d3.axisBottom(updatedx).tickSize(6).ticks(attr.xTicks, "s"));
+      svg.selectAll("#yAxis").call(d3.axisLeft(updatedy).tickSize(6).ticks(attr.yTicks, "s"));
+      svg.selectAll("#yAxisGrid").call(d3.axisLeft(updatedy).tickSize(-width).tickFormat('').ticks(attr.yTicks, "s").tickSizeOuter(0));
       svg.selectAll("#xAxis").selectAll(".tick text").attr("dy", 20)
       //change line's position when zooming
       drawnPaths.forEach((path) => {

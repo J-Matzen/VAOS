@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 import styled from 'styled-components';
 import { SamplesColors } from '../../constants/colors';
+import * as attr from '../../constants/plotAttributes';
 
 const GraphStyle = styled.div`
 	.legend {
@@ -45,7 +46,7 @@ function LineGraph(props) {
 			setGraphSize(props.graphSize)
 		}
 
-		createLineGraph(data, { graphSize: graphSize, graphStrokeWidth: 3, axisTextSize: 20, tickTextSize: 15, showTitle: props.showTitle, axisTitles: props.axisTitles })
+		createLineGraph(data, { graphSize: graphSize, graphStrokeWidth: 3, showTitle: props.showTitle, axisTitles: props.axisTitles })
 	}, [props, graphSize]);
 
 	return (
@@ -89,11 +90,11 @@ export function createLineGraph(data, settings) {
 	const enableLegend = settings.hasOwnProperty("enableLegend") ? settings.enableLegend : true
 	const graphStrokeWidth = settings.hasOwnProperty("graphStrokeWidth") ? settings.graphStrokeWidth : 1
 	//axis variables
-	const axisStrokeWidth = settings.hasOwnProperty("axisStrokeWidth") ? settings.axisStrokeWidth : 1
-	const axisTextSize = settings.hasOwnProperty("axisTextSize") ? settings.axisTextSize : 25
-	const tickTextSize = settings.hasOwnProperty("tickTextSize") ? settings.tickTextSize : 15
-	const yTicks = settings.hasOwnProperty("yTicks") ? settings.yTicks : 5
-	const yTickSize = settings.hasOwnProperty("yTickSize") ? settings.yTickSize : 6
+	const axisStrokeWidth = settings.hasOwnProperty("axisStrokeWidth") ? settings.axisStrokeWidth : attr.axisStrokeWidth
+	const axisTextSize = settings.hasOwnProperty("axisTextSize") ? settings.axisTextSize : attr.axisTextSize
+	const tickTextSize = settings.hasOwnProperty("tickTextSize") ? settings.tickTextSize : attr.tickTextSize
+	const yTicks = settings.hasOwnProperty("yTicks") ? settings.yTicks : attr.yTicks
+	const yTickSize = settings.hasOwnProperty("yTickSize") ? settings.yTickSize : attr.tickSize
 	const showXTicks = settings.hasOwnProperty("showXTicks") ? settings.showXTicks : true
 	var showTitle = settings.hasOwnProperty("showTitle") ? settings.showTitle : true
 	var axisTitles = (settings.axisTitles !== undefined) ? settings.axisTitles : { x: data.xName, y: data.yName };
@@ -121,9 +122,9 @@ export function createLineGraph(data, settings) {
 
 	const margin = {
 		right: enableLegend ? 120 : 10,
-		left: showTitle ? graphSize.width / 7 + 5 : 5,
 		top: 20,
-		bottom: showTitle ? graphSize.height / 7 + 5 : 5,
+		bottom: showTitle ? 75 : 5,
+		left: showTitle ? 75 : 5
 	};
 	const translation = settings.hasOwnProperty("translation") ? settings.translation : { x: margin.left, y: margin.top }
 	const innerGraphSize = {
@@ -153,6 +154,7 @@ export function createLineGraph(data, settings) {
 		.attr("transform", `translate(0, ${innerGraphSize.height})`)
 		.style("stroke-width", axisStrokeWidth)
 		.attr("class", "axis")
+		.style("font", tickTextSize + "px sans-serif")
 		.call(d3.axisBottom(x)
 			.tickSize(showXTicks ? 6 : 0)
 			.tickFormat(showXTicks ? (e) => e : () => ""));
@@ -178,6 +180,7 @@ export function createLineGraph(data, settings) {
 	svg.append("g")
 		.style("stroke-width", axisStrokeWidth)
 		.attr("class", "axis")
+		.style("font", tickTextSize + "px sans-serif")
 		.call(d3.axisLeft(y)
 			.tickSize(yTickSize)
 			.ticks(yTicks));
@@ -211,9 +214,6 @@ export function createLineGraph(data, settings) {
 			.attr("transform", "rotate(-90)")
 			.style("font", axisTextSize + "px sans-serif")
 			.text(axisTitles.y);
-
-	svg.selectAll(".axis")
-		.style("font", tickTextSize + "px sans-serif")
 
 	// color palette
 	var color = d3.scaleOrdinal()

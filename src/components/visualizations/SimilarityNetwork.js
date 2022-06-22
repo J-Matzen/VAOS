@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from "d3";
 import { useSelector } from 'react-redux';
 import { PerfectElasticColor, PerfectViscousColor, SamplesColors } from '../../constants/colors';
-import { ElasticStress, PerfectElastic, PerfectViscous, ViscousStress } from '../../constants/attributes';
+import { PerfectElastic, PerfectViscous } from '../../constants/attributes';
 
 // set the dimensions and margins of the graph
 const margin = { top: 20, right: 20, bottom: 50, left: 20 }
@@ -157,7 +157,7 @@ function SimilarityNetwork(props) {
       })
       .on("mousemove", function (event, obj) {
         //only display tooltip if opacity is 1
-        if (d3.select(this).style("opacity") != 0) {
+        if (d3.select(this).style("opacity") !== 0) {
           tooltip
             .html("Similarity:<br> " + obj.similarity + "<br> Source:" + obj.source.name + "<br> Target:" + obj.target.name)
             .style("left", (event.pageX) + "px")
@@ -234,7 +234,7 @@ function SimilarityNetwork(props) {
         sheetNameSplit = [sheet.name, undefined]
       }
       
-      if (sheetNameSplit[0] != previousName) {
+      if (sheetNameSplit[0] !== previousName) {
         previousName = sheetNameSplit[0]
 
         let colorName = "#2b2b2b";
@@ -259,7 +259,7 @@ function SimilarityNetwork(props) {
       }
 
       // Create amplitude labels and coloring
-      if (!strains.has(sheetNameSplit[1]) && sheetNameSplit[1] != undefined) {
+      if (!strains.has(sheetNameSplit[1]) && sheetNameSplit[1] !== undefined) {
         strains.add(sheetNameSplit[1])
 
         let colorName = color(sheetNameSplit[1]);
@@ -270,16 +270,10 @@ function SimilarityNetwork(props) {
         }
 
         svgElement.append("text")
-          .attr("x", graphSize.width - 145)
-          .attr("y", yshiftStrain)
-          .style("fill", d3.color(colorName).brighter(brightness * brightConstant))
-          .text(sheetNameSplit[1])
-
-        svgElement.append("text")
           .attr("x", graphSize.width - 160)
           .attr("y", yshiftStrain)
           .style("fill", d3.color(colorName).brighter(brightness * brightConstant))
-          .text("%")
+          .text(sheetNameSplit[1] + "%")
 
         svgElement.append("rect")
           .attr("x", graphSize.width - 175)

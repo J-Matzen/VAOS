@@ -2,10 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 import { useSelector } from 'react-redux';
 import { PerfectElasticColor, PerfectViscousColor, SamplesColors } from '../../constants/colors';
-import { ElasticStress, PerfectElastic, PerfectViscous, ViscousStress } from '../../constants/attributes';
+import { PerfectElastic, PerfectViscous } from '../../constants/attributes';
+import * as attr from '../../constants/plotAttributes';
 
 // set the dimensions and margins of the graph
-const margin = { top: 40, right: 100, bottom: 40, left: 40 }
+const margin = { top: 20, right: 100, bottom: 60, left: 60 }
 
 function SimilarityChart(props) {
   const elasticSimilarity = useSelector((state) => state.similarity.elasticLissajousLineData)
@@ -74,10 +75,18 @@ function SimilarityChart(props) {
 
     svg.append("g")
       .attr("transform", `translate(0, ${height})`)
-      .call(d3.axisBottom(x));
+      .style("font", attr.tickTextSize + "px sans-serif")
+      .style("stroke-width", attr.axisStrokeWidth)
+      .call(d3.axisBottom(x)
+			  .tickSize(attr.tickSize)
+			  .ticks(attr.xTicks));
 
     svg.append("g")
-      .call(d3.axisLeft(y));
+      .style("font", attr.tickTextSize + "px sans-serif")
+      .style("stroke-width", attr.axisStrokeWidth)
+      .call(d3.axisLeft(y)
+			  .tickSize(attr.tickSize)
+			  .ticks(attr.yTicks));
 
     const brightConstant = 0.9
 
@@ -102,7 +111,7 @@ function SimilarityChart(props) {
     let yshift = 0;
     data.forEach((sheet) => {
       let split = sheet.name.split(" ");
-      let brightness = split[1] == undefined ? 0 : amplitudeNames.indexOf(parseFloat(split[1]));
+      let brightness = split[1] === undefined ? 0 : amplitudeNames.indexOf(parseFloat(split[1]));
 
       svg.append("text")
         .attr("x", width)

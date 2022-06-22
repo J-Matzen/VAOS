@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from "d3";
 import { useSelector } from 'react-redux';
-import { ElasticStress, PerfectElastic, PerfectViscous, ViscousStress } from '../../constants/attributes';
+import { PerfectElastic, PerfectViscous } from '../../constants/attributes';
+import * as attr from '../../constants/plotAttributes';
 
 // set the dimensions and margins of the graph
 const margin = {
-  top: 10,
+  top: 20,
   right: 85,
   bottom: 60,
   left: 60
@@ -66,7 +67,9 @@ function SimilarityHeatmap(props) {
 
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
+      .style("font", attr.tickTextSize + "px sans-serif")
+      .style("stroke-width", attr.axisStrokeWidth)
+      .call(d3.axisBottom(x).tickSize(attr.tickSize))
       .selectAll("text")
       .style("text-anchor", "end")
       .attr("dx", "-.8em")
@@ -74,7 +77,9 @@ function SimilarityHeatmap(props) {
       .attr("transform", "rotate(-65)");
 
     svg.append("g")
-      .call(d3.axisLeft(y));
+      .style("font", attr.tickTextSize + "px sans-serif")
+      .style("stroke-width", attr.axisStrokeWidth)
+      .call(d3.axisLeft(y).tickSize(attr.tickSize));
 
     var colorScale = d3.scaleSequential()
       .interpolator(d3.interpolateOranges)
@@ -255,6 +260,7 @@ function SimilarityHeatmap(props) {
     //////////////////// Perfect legend
     ///////////////////////////////////////////////////////////////////////////	
     svg.append("text")
+      .style("font", attr.tickTextSize + "px sans-serif")
       .style("text-anchor", "end")
       .attr("transform", "translate(0," + height + ") rotate(-45)")
       .attr("dx", "-.8em")
