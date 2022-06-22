@@ -57,12 +57,13 @@ function SimilarityNetwork(props) {
         return;
       }
 
+
       if (sheet.first === stress) {
         nodes.push({ "id": incrementID, "name": sheet.first, type: d3.symbolsFill[0], size: 50 })
       } else {
         let sample = sheet.first.split(" ")[0];
         let symbolID = sampleNames.indexOf(sample);
-        nodes.push({ "id": incrementID, "name": sheet.first, type: d3.symbolsFill[symbolID + 1], size: 50 })
+        nodes.push({ "id": incrementID, "name": sheet.first, type: (symbolID+1 <= 6) ? d3.symbolsFill[symbolID + 1] : d3.symbolsFill[1]  , size: 50 })
       }
       nodeNames.add(sheet.first.replace(/(\s+|,+|\.+)/g, ''))
       incrementID = incrementID + 1;
@@ -290,6 +291,7 @@ function SimilarityNetwork(props) {
       }
     })
 
+    console.log("BEFORE TICK", nodes, edges)
     // This function is run at each iteration of the force algorithm, updating the nodes position.
     function tick() {
       link
