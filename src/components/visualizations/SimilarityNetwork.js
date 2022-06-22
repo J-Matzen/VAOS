@@ -291,7 +291,6 @@ function SimilarityNetwork(props) {
       }
     })
 
-    console.log("BEFORE TICK", nodes, edges)
     // This function is run at each iteration of the force algorithm, updating the nodes position.
     function tick() {
       link
