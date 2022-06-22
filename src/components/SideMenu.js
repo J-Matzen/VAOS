@@ -33,7 +33,7 @@ function SideMenu() {
           <Box sx={{ mb: 2, mt: 2 }}>
             <FileDialog />
             <Typography variant='h6' align="left" sx={{ mt: 2 }}>Input</Typography>
-            <Typography variant='subtitle2' align="left" sx={{ mt: 1 }}>Selected file</Typography>{fileNames.map((name) => (<Typography key={name}>{name}</Typography>))}
+            <Typography variant='subtitle2' align="left" sx={{ mt: 1 }}>Selected file(s)</Typography>{fileNames.map((name) => (<Typography key={name}>{name}</Typography>))}
           </Box>
           <Box textAlign="center" sx={{ height: "100%" }}>
             <Typography variant='h6' align="left" mt={3}>Stress Filtering</Typography>
