@@ -6,7 +6,7 @@ import * as cons from "../../constants/plotNames";
 function RatioTab({ data, sampleNames, value, proj, paperPadding, paperThemeColor, paperTextColor, files }) {
   const [selectedRatioChartType, setRatioChartType] = React.useState(cons.RatioLinechart)
   const [ratio, setRatio] = React.useState('Stiffening')
-  const [selectedView, setView] = React.useState("Frequency")
+  const [selectedView, setView] = React.useState("Samples")
   const [tab, setTab] = React.useState('')
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function RatioTab({ data, sampleNames, value, proj, paperPadding, paperThemeColo
             <Paper sx={{ width: "100%", height: "50vh", bgcolor: paperThemeColor, color: paperTextColor, padding: paperPadding, textAlign: 'end', mb: 2 }}>
               <Typography variant="h6" align="center" >Sample Settings</Typography>
               <Divider />
-              <Typography variant='subtitle1' align="left" mt={2} mx={"2"}>Select Ratio</Typography>
+              <Typography variant='subtitle1' align="left" mt={1} mx={"2"}>Selected Ratio</Typography>
               <TextField
                 select
                 color='secondary'
@@ -33,7 +33,7 @@ function RatioTab({ data, sampleNames, value, proj, paperPadding, paperThemeColo
                 ))}
               </TextField>
               <React.Fragment>
-                <Typography variant='subtitle1' align="left" mt={1} mx={"2"}>Selected Strain</Typography>
+                <Typography variant='subtitle1' align="left" mt={2}>Selected Category</Typography>
                 <TextField
                   select
                   color='secondary'

@@ -27,7 +27,7 @@ function LayoverTab({ data, sampleNames, value, proj, paperPadding, paperThemeCo
             <Paper sx={{ width: "100%", height: "50vh", bgcolor: paperThemeColor, color: paperTextColor, padding: paperPadding, textAlign: 'end', mb: 2 }}>
               <Typography variant="h6" align="center" >Sample Settings</Typography>
               <Divider />
-              <Typography variant='subtitle1' align="left" mt={2} mx={"2"}>Selected Chart</Typography>
+              <Typography variant='subtitle1' align="left" mt={1} mx={"2"}>Selected Chart</Typography>
               <TextField
                 select
                 color='secondary'
@@ -44,7 +44,7 @@ function LayoverTab({ data, sampleNames, value, proj, paperPadding, paperThemeCo
               </TextField>
               {(selectedLayoverChartType !== graphTypes[12] && selectedLayoverChartType !== graphTypes[13]) &&
                 <React.Fragment>
-                  <Typography variant='subtitle1' align="left" mt={1} mx={"2"}>Selected File</Typography>
+                  <Typography variant='subtitle1' align="left" mt={2}>Selected File</Typography>
                   <TextField
                     select
                     color='secondary'

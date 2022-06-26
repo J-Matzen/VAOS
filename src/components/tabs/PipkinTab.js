@@ -7,7 +7,7 @@ import * as cons from "../../constants/plotNames";
 
 
 function PipkinTab({ data, sampleNames, value, proj, paperPadding, paperThemeColor, paperTextColor }) {
-  const [selectedPipkinChartType, setPipkinChartType] = React.useState(cons.PipkinInSample)
+  const [selectedPipkinChartType, setPipkinChartType] = React.useState(cons.PipkinOutSample)
   const [projection, setProjection] = React.useState('Elastic')
   const [selectedProjection, setSelectedProjection] = React.useState({ x: "Strain [-]", y: "Stress [Pa]", z: "ElasticStress" })
   const [selectedFile, setFile] = React.useState(data[0].fileName);
@@ -51,7 +51,7 @@ function PipkinTab({ data, sampleNames, value, proj, paperPadding, paperThemeCol
                 ))}
               </TextField>
 
-              <Typography variant='subtitle1' align="left" mt={2}>Selected projection</Typography>
+              <Typography variant='subtitle1' align="left" mt={2}>Selected Projection</Typography>
               <TextField
                 select
                 color='secondary'
