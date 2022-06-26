@@ -153,19 +153,25 @@ function SimilarityNetwork(props) {
       .attr("vector-effect", "non-scaling-stroke")
       .style("fill", "none")
       .on("mouseover", () => {
+        /*
         tooltip.style("opacity", 1)
+        */
       })
       .on("mousemove", function (event, obj) {
         //only display tooltip if opacity is 1
+        /*
         if (d3.select(this).style("opacity") !== 0) {
           tooltip
             .html("Similarity:<br> " + obj.similarity + "<br> Source:" + obj.source.name + "<br> Target:" + obj.target.name)
             .style("left", (event.pageX) + "px")
             .style("top", (event.pageY) + "px")
         }
+        */
       })
       .on("mouseleave", () => {
+        /*
         tooltip.style("opacity", 0)
+        */
       });
 
     var perfectColor = PerfectViscousColor;
