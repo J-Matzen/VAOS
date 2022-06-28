@@ -82,8 +82,8 @@ function SimilarityHeatmap(props) {
       .call(d3.axisLeft(y).tickSize(attr.tickSize));
 
     var colorScale = d3.scaleSequential()
-      .interpolator(d3.interpolateOranges)
-      .domain([0, 100]);
+      .interpolator(d3.interpolateInferno)
+      .domain([-10, 110]);
 
     ///////////////////////////////////////////////////////////////////////////
     //////////////////// Color scale legend
@@ -160,7 +160,7 @@ function SimilarityHeatmap(props) {
       .data(noPerfectData)
       .enter()
       .append("rect")
-      .attr("class", function (d) { return "simHeat " + d.second.replace(/(\s+|,+|\.+)/g, ''); })
+      .attr("class", function (d) { return "simHeat " + d.second.replace(/(\s+|,+|\.+)/g, '') + " " + d.first.replace(/(\s+|,+|\.+)/g, ''); })
       .attr("x", function (d) { return x(d.first); })
       .attr("y", function (d) { return y(d.second) })
       .attr("width", x.bandwidth() - 0.5)
