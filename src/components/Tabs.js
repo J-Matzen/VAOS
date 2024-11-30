@@ -18,6 +18,7 @@ import LayoverTab from './tabs/LayoverTab';
 import RatioTab from './tabs/RatioTab';
 
 import SimilarityTab from './tabs/SimilarityTab';
+import { StrainRate } from '../constants/attributes';
 const Store = window.require('electron-store')
 
 let storage = new Store()
@@ -105,7 +106,7 @@ function Tabs() {
 
   //setup choices of viscous or elastic projection
   var proj = new Map()
-  proj.set("Viscous", { x: "Strain Rate [Hz]", y: "Stress [Pa]", z: "ViscousStress" })
+  proj.set("Viscous", { x: StrainRate, y: "Stress [Pa]", z: "ViscousStress" })
   proj.set("Elastic", { x: "Strain [-]", y: "Stress [Pa]", z: "ElasticStress" })
 
   //COLORS

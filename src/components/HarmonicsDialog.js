@@ -5,6 +5,7 @@ import HarmonicsMatrix from './harmonics/HarmonicsMatrix';
 import HarmonicsLine from './harmonics/HarmonicsLine';
 import SearchIcon from '@mui/icons-material/Search';
 import HarmonicHeatMap from './harmonics/HarmonicHeatmap';
+import { StrainRate } from '../constants/attributes';
 
 function HarmonicsDialog() {
   const [open, setOpen] = React.useState(false);
@@ -17,7 +18,7 @@ function HarmonicsDialog() {
   const projections = ["Elastic", "Viscous"];
   //setup choices of viscous or elastic projection
   var proj = new Map()
-  proj.set("Viscous", { x: "Strain Rate [Hz]", y: "Stress [Pa]", z: "ViscousStress" })
+  proj.set("Viscous", { x: StrainRate, y: "Stress [Pa]", z: "ViscousStress" })
   proj.set("Elastic", { x: "Strain [-]", y: "Stress [Pa]", z: "ElasticStress" })
 
   const handleClickOpen = () => {

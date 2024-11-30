@@ -1,0 +1,42 @@
+{
+  "name": "@signalprocessing/transforms",
+  "version": "2.0.6",
+  "description": "Ultra FFT and inverse FFT and more",
+  "scripts": {
+    "build-commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir build-commonjs",
+    "build-es": "cross-env BABEL_ENV=es babel src --out-dir build-es"
+  },
+  "jsnext:main": "./build-es/index.js",
+  "main": "./build-commonjs/index.js",
+  "module": "./build-es/index.js",
+  "types": "./declarations/transforms.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusufsaygili/signalprocessing.git"
+  },
+  "keywords": [
+    "fft",
+    "fast",
+    "fourier",
+    "transform",
+    "matlab style fft",
+    "inverse fft",
+    "ifft"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@types/node": "^14.14.22",
+    "cross-env": "^7.0.3"
+  },
+  "bugs": {
+    "url": "https://github.com/yusufsaygili/signalprocessing/issues"
+  },
+  "homepage": "https://github.com/yusufsaygili/signalprocessing#readme",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "author": "Yusuf Saygili",
+  "license": "MIT",
+  "dependencies": {}
+}

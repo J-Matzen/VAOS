@@ -13,6 +13,7 @@ import SimilarityChart from "./visualizations/SimilarityChart";
 import SimilarityHeatmap from "./visualizations/SimilarityHeatmap";
 import SimilarityNetwork from "./visualizations/SimilarityNetwork";
 import HarmonicsLine from "./harmonics/HarmonicsLine";
+import { StrainRate } from "../constants/attributes";
 
 const ChartTypeSelector = (props) => {
   var data = props.hasOwnProperty("data") ? props.data : []
@@ -59,7 +60,7 @@ const ChartTypeSelector = (props) => {
 
       case cons.ThreeDLissajous:
         setSelectedChart(
-          <Lissajous3D data={selectedSampleData} x={"Strain [-]"} y={"Strain Rate [Hz]"} z={"Stress [Pa]"} colors={selectedColorScheme} graphSize={graphSize} exportSvg={exportSvg}  ></Lissajous3D>
+          <Lissajous3D data={selectedSampleData} x={"Strain [-]"} y={StrainRate} z={"Stress [Pa]"} colors={selectedColorScheme} graphSize={graphSize} exportSvg={exportSvg}  ></Lissajous3D>
         )
         break;
 
@@ -98,7 +99,7 @@ const ChartTypeSelector = (props) => {
 
       case cons.ThreeDLayoverName:
         setSelectedChart(
-          <LayoverPlot3D data={data} x={"Strain [-]"} y={"Strain Rate [Hz]"} z={"Stress [Pa]"} fileName={selectedFile} graphSize={graphSize} exportSvg={exportSvg} />
+          <LayoverPlot3D data={data} x={"Strain [-]"} y={StrainRate} z={"Stress [Pa]"} fileName={selectedFile} graphSize={graphSize} exportSvg={exportSvg} />
         )
         break;
 

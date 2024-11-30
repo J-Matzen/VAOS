@@ -2,7 +2,8 @@ import React from 'react';
 import { Alert, AlertTitle, Box } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux'
 import { setResults } from '../../slices/resultsSlice'
-import { fft } from '@signalprocessing/transforms';
+import { StrainRate } from '../../constants/attributes';
+import { fft } from '../../library/@signalprocessing/transforms/src';
 
 /*
 Special thanks to MITlaos for providing the base to these calculations.
@@ -178,7 +179,7 @@ export const analyseData = (preprocessed, frequency, settings, overwrites) => {
 
   let result = {
     "Strain [-]": gammaReconstructed,
-    "Strain Rate [Hz]": gammaDotReconstructed,
+    StrainRate: gammaDotReconstructed,
     "Stress [Pa]": sigmaReconstructed,
     ElasticStress: sigmaElastic,
     ViscousStress: sigmaViscous,
