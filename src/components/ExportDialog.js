@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { StandardColors } from '../constants/colors';
 
 import ChartTypeSelector from './ChartTypeSelector';
+import { StrainRate } from '../constants/attributes';
 
 function ExportDialog() {
   var data = useSelector((state) => state.results.results)
@@ -75,7 +76,7 @@ function ExportDialog() {
 
   //setup choices of viscous or elastic projection
   var proj = new Map()
-  proj.set("Viscous", { x: "Strain Rate [Hz]", y: "Stress [Pa]", z: "ViscousStress" })
+  proj.set("Viscous", { x: StrainRate, y: "Stress [Pa]", z: "ViscousStress" })
   proj.set("Elastic", { x: "Strain [-]", y: "Stress [Pa]", z: "ElasticStress" })
 
   //Makes sure that a sample name is shown in the bars, when data has been loaded in

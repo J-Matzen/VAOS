@@ -1,5 +1,6 @@
 import * as cons from "../constants/plotNames";
 import { StandardColors } from '../constants/colors';
+import { StrainRate } from "./attributes";
 
 var selectedSample = " - 0%"
 var projection = "Elastic"
@@ -45,12 +46,12 @@ export const similarityGridChartTemplate = () => [
 
     {
       selectedChartType: cons.PipkinOutSample, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain Rate [Hz]', y: 'Stress [Pa]', z: 'ViscousStress' }, proj: "Viscous", selectedFile: undefined, selectedColorScheme: StandardColors
+      data: data, selectedProjection: { x: StrainRate, y: 'Stress [Pa]', z: 'ViscousStress' }, proj: "Viscous", selectedFile: undefined, selectedColorScheme: StandardColors
       , alignment: "Standard", ratioValue: "Stiffening", template: true
     },
     {
       selectedChartType: cons.TwoDLissajous, selectedSampleData: selectedSampleData, selectedSample: selectedSample,
-      data: data, selectedProjection: { x: 'Strain Rate [Hz]', y: 'Stress [Pa]', z: 'ViscousStress' }, proj: "Viscous", selectedFile: undefined, selectedColorScheme: StandardColors
+      data: data, selectedProjection: { x: StrainRate, y: 'Stress [Pa]', z: 'ViscousStress' }, proj: "Viscous", selectedFile: undefined, selectedColorScheme: StandardColors
       , alignment: "Standard", ratioValue: "Stiffening"
     },
   ]
