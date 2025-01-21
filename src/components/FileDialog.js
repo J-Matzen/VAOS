@@ -6,6 +6,7 @@ import { setData } from '../slices/dataSlice'
 import FileMenu from './fileDialog/FileMenu';
 import OutputWindow from './fileDialog/OutputWindow';
 import excel from 'fast-xlsx-reader';
+const { webUtils } = window.require('electron')
 
 const frequencyRegex = /((_f\d{1,}))+/g
 const sampleNameRegex = /@([^;]*)_/g
@@ -93,8 +94,9 @@ function FileDialog() {
     }
 
     const files = [...fileList].map(async (f) => {
+      let path = webUtils.getPathForFile(f);
       const reader = excel.createReader({
-        input: f.path
+        input: path
       });
 
       const sheetnames = reader.sheetNames;

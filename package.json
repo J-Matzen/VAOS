@@ -1,6 +1,6 @@
 {
   "name": "VAOS",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "private": true,
   "homepage": "./",
   "main": "public/electron.js",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.0.0",
-    "electron": "^33.2.1",
+    "electron": "^33.3.1",
     "electron-builder": "^25.1.8",
     "wait-on": "^8.0.1"
   },
