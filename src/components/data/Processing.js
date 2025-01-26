@@ -179,7 +179,7 @@ export const analyseData = (preprocessed, frequency, settings, overwrites) => {
 
   let result = {
     "Strain [-]": gammaReconstructed,
-    StrainRate: gammaDotReconstructed,
+    [StrainRate]: gammaDotReconstructed,
     "Stress [Pa]": sigmaReconstructed,
     ElasticStress: sigmaElastic,
     ViscousStress: sigmaViscous,
